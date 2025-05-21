@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Food order App</string>
+    <string name="enjoy">Enjoy Restaurant Quality Meal
+at Home</string>
+    <string name="next">Next</string>
+    <string name="Waves">Waves Of Food</string>
+    <string name="Deliver">Deliver Favorite Food</string>
+    <string name="login">Login To Your  Account</string>
+    <string name="chooselocation">To provide you with the best dining experience, we need your permission to access your device\'s location. By enabling location services, we can offer personalized restaurant recommendations, accurate delivery estimates, and ensure a seamless food delivery experience."</string>
+</resources>
