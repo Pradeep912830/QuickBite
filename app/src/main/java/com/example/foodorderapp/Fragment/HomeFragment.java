@@ -1,9 +1,11 @@
 package com.example.foodorderapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,10 +29,12 @@ public class HomeFragment extends Fragment {
     private ImageSlider imageSlider;
     private RecyclerView recyclerView;
 
+
     public HomeFragment() {
         // Required empty public constructor
     }
 
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,12 +42,16 @@ public class HomeFragment extends Fragment {
 
         imageSlider = view.findViewById(R.id.image_slider);
         recyclerView = view.findViewById(R.id.recyclerView);
+        
+
 
         setupImageSlider();
         setupPopularItems();
 
         return view;
     }
+
+
 
     private void setupImageSlider() {
         List<SlideModel> slideModels = new ArrayList<>();
