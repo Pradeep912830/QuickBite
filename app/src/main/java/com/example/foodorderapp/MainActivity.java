@@ -1,6 +1,8 @@
 package com.example.foodorderapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView notificationIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        notificationIcon = findViewById(R.id.notification_image);
+        notificationIcon.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    Notification_Buttom_Fragment bottomSheet = new Notification_Buttom_Fragment();
+                                                    bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
+                                                }
+                                            }
+        );
 
     }
 }
