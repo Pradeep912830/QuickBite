@@ -13,9 +13,9 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/icon"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/baseline_arrow_back_24"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -162,6 +162,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editInformationButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Place My Order"
@@ -174,5 +175,6 @@
         android:background="@drawable/profile_backgroung"
         android:textAllCaps="false"
         android:textColor="@color/mainDark"/>
+
 
 </LinearLayout>
