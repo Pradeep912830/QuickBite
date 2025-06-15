@@ -1,24 +1,33 @@
 package com.example.foodorderapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class DetailsActivity extends AppCompatActivity {
+    ImageView foodImage, backButton;
+    TextView foodName;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_details);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        foodImage = findViewById(R.id.foodImage);
+        foodName = findViewById(R.id.foodName);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> onBackPressed());
+
+        String name = getIntent().getStringExtra("foodName");
+        int imageResId = getIntent().getIntExtra("foodImage", 0);
+
+        foodName.setText(name);
+        foodImage.setImageResource(imageResId);
     }
+
 }

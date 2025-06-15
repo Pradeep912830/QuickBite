@@ -1,5 +1,6 @@
 package com.example.foodorderapp.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.Model.MenuItemModel;
 import com.example.foodorderapp.R;
 import com.example.foodorderapp.adapter.MenuAdapter;
@@ -59,6 +61,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         MenuAdapter adapter = new MenuAdapter(menuList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra("foodName", item.getName());
+            intent.putExtra("foodImage", item.getImageResId());
+            startActivity(intent);
+        });
+
         return view;
     }
 
@@ -78,6 +87,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             behavior.setSkipCollapsed(true);
         }
     }
+
 
 
 
