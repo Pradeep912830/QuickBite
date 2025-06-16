@@ -24,10 +24,24 @@ public class DetailsActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> onBackPressed());
 
         String name = getIntent().getStringExtra("foodName");
-        int imageResId = getIntent().getIntExtra("foodImage", 0);
+        int imageResId = getIntent().getIntExtra("foodImage", -1);
 
-        foodName.setText(name);
-        foodImage.setImageResource(imageResId);
+        if (name != null && imageResId != -1) {
+            foodName.setText(name);
+            foodImage.setImageResource(imageResId);
+        } else {
+            // Try the alternative keys
+            String name1 = getIntent().getStringExtra("food_name");
+            int imageResId1 = getIntent().getIntExtra("food_image", -1);
+
+            if (name1 != null && imageResId1 != -1) {
+                foodName.setText(name1);
+                foodImage.setImageResource(imageResId1);
+            } else {
+                foodName.setText("No food data received");
+            }
+        }
+
     }
 
 }

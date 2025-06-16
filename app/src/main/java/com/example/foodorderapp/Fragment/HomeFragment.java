@@ -1,6 +1,7 @@
 package com.example.foodorderapp.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.Model.PopularModel;
 import com.example.foodorderapp.R;
 import com.example.foodorderapp.adapter.PopularAdapter;
@@ -105,6 +107,14 @@ public class HomeFragment extends Fragment {
         PopularAdapter adapter = new PopularAdapter(popularList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra("food_name", item.getName());
+            intent.putExtra("food_image", item.getImageResId());
+            startActivity(intent);
+        });
     }
 
 

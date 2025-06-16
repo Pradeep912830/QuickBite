@@ -68,6 +68,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             startActivity(intent);
         });
 
+
+
         return view;
     }
 

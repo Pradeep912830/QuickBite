@@ -1,6 +1,7 @@
 package com.example.foodorderapp.adapter;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodorderapp.Model.MenuItemModel;
 import com.example.foodorderapp.Model.PopularModel;
 import com.example.foodorderapp.R;
 
@@ -17,6 +19,16 @@ import java.util.List;
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularViewHolder> {
 
     private List<PopularModel> itemList;
+
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(PopularModel item);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public PopularAdapter(List<PopularModel> itemList) {
         this.itemList = itemList;
@@ -36,6 +48,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         holder.food_name.setText(item.getName());
         holder.food_price.setText(item.getPrice());
         holder.food_addtocart.setText(item.getFood_addtocartName());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
 
     }
 
