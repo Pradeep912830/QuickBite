@@ -38,7 +38,15 @@ public class DetailsActivity extends AppCompatActivity {
                 foodName.setText(name1);
                 foodImage.setImageResource(imageResId1);
             } else {
-                foodName.setText("No food data received");
+
+                String name2 = getIntent().getStringExtra("food_name");
+                int imageResI2 = getIntent().getIntExtra("food_image", -1);
+
+                if(name2 != null && imageResI2 != -1){
+                    foodName.setText(name2);
+                    foodImage.setImageResource(imageResI2);
+                }
+
             }
         }
 

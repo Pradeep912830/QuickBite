@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.foodorderapp.Model.FoodItem;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodorderapp.Model.MenuItemModel;
 import com.example.foodorderapp.R;
 
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     private Context context;
     private List<FoodItem> foodList;
     private List<FoodItem> fullList;
+
+
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(FoodItem item);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public FoodAdapter(Context context, List<FoodItem> foodList) {
         this.context = context;
@@ -38,6 +50,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.name.setText(item.getName());
         holder.price.setText(item.getPrice());
         holder.image.setImageResource(item.getImageResId());
+
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
     }
 
     @Override

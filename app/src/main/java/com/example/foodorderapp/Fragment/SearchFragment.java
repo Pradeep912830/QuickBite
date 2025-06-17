@@ -1,6 +1,9 @@
 package com.example.foodorderapp.Fragment;
+import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.adapter.FoodAdapter;
 import com.example.foodorderapp.Model.FoodItem;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +35,13 @@ public class SearchFragment extends Fragment {
         adapter = new FoodAdapter(getContext(), foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra("food_name", item.getName());
+            intent.putExtra("food_image", item.getImageResId());
+            startActivity(intent);
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
