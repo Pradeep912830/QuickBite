@@ -39,7 +39,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         RecyclerView recyclerView = view.findViewById(R.id.menuRecyclerView);
         backButton = view.findViewById(R.id.backButton);
 
-
+  
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
