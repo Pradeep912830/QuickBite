@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class Login_Activity extends AppCompatActivity {
 
     TextView do_notHaveAccount;
+    AppCompatButton btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,24 @@ public class Login_Activity extends AppCompatActivity {
         });
 
         do_notHaveAccount = findViewById(R.id.do_notHaveAccount);
+        btnLogin = findViewById(R.id.btnLogin);
 
         do_notHaveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login_Activity.this, Signup_Activity.class);
                 startActivity(intent);
+            }
+        });
+
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         });
 

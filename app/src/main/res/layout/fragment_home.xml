@@ -38,7 +38,7 @@
         android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:text="Popular"
-        android:background="@drawable/textview_shape"
+        android:background="@drawable/white_color"
         android:gravity="center"
         android:elevation="5dp"
         android:textColor="@color/mainDark"
@@ -59,7 +59,7 @@
         android:elevation="5dp"
         android:gravity="center"
         android:textColor="@color/mainLight"
-        android:background="@drawable/textview_shape"
+        android:background="@drawable/white_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         tools:ignore="MissingConstraints" />

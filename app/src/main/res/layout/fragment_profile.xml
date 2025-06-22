@@ -144,14 +144,14 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:text="Save Information"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginRight="20dp"
             android:elevation="20dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/profile_backgroung"
             android:textAllCaps="false"
             android:textColor="@color/mainDark"/>

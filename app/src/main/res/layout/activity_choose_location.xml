@@ -54,12 +54,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/chooselocation"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="15dp"/>
 
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLocation"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/red_color"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 
 
 

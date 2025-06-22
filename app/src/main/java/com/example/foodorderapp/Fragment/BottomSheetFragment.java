@@ -1,5 +1,6 @@
 package com.example.foodorderapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.Model.MenuItemModel;
@@ -25,6 +27,9 @@ import java.util.List;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
+    ImageView backButton;
+
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -32,6 +37,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_bottom__sheet_, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.menuRecyclerView);
+        backButton = view.findViewById(R.id.backButton);
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<MenuItemModel> menuList = new ArrayList<>();
