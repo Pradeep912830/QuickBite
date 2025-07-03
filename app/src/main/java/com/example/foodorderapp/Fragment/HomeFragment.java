@@ -67,6 +67,10 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel(R.drawable.food_two, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.food_three, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.food_four, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.food_one, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.food_two, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.food_three, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.food_four, ScaleTypes.FIT));
         imageSlider.setImageList(slideModels);
 
         imageSlider.setItemClickListener(new ItemClickListener() {
