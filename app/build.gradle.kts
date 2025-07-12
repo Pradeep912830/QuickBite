@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.foodorderapp"
-        minSdk = 21
+        minSdk = 31
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -44,6 +45,12 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.google.android.material:material:1.0.0")
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-auth:22.3.1")        // or whatever Firebase services you need
+    implementation ("com.google.firebase:firebase-database:20.3.0")
+    implementation ("com.google.firebase:firebase-storage:20.3.0")
+
 
 
 }

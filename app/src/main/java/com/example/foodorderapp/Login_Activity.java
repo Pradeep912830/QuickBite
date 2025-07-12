@@ -2,53 +2,74 @@ package com.example.foodorderapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class Login_Activity extends AppCompatActivity {
 
-    TextView do_notHaveAccount;
-    AppCompatButton btnLogin;
+    private EditText loginWithEmailOrPhone, loginPassword;
+    private Button btnLogin;
+    private FirebaseAuth mAuth;
+    private TextView doNotHaveAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.activity_login); // make sure this matches your XML name
 
-        do_notHaveAccount = findViewById(R.id.do_notHaveAccount);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize Views
+        loginWithEmailOrPhone = findViewById(R.id.loginWithEmailOrPhone);
+        loginPassword = findViewById(R.id.loginPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        doNotHaveAccount = findViewById(R.id.do_notHaveAccount);
 
-        do_notHaveAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login_Activity.this, Signup_Activity.class);
-                startActivity(intent);
-            }
+        // Login button click
+        btnLogin.setOnClickListener(view -> loginUser());
+
+        // "Don't have an account?" click
+        doNotHaveAccount.setOnClickListener(v -> {
+            startActivity(new Intent(Login_Activity.this, Signup_Activity.class));
+            finish();
         });
+    }
 
+    private void loginUser() {
+        String email = loginWithEmailOrPhone.getText().toString().trim();
+        String password = loginPassword.getText().toString().trim();
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });
+        if (TextUtils.isEmpty(email)) {
+            loginWithEmailOrPhone.setError("Email is required");
+            return;
+        }
 
+        if (TextUtils.isEmpty(password)) {
+            loginPassword.setError("Password is required");
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(Login_Activity.this, task -> {
+                    if (task.isSuccessful()) {
+                        // Login success
+                        Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        // Login failed
+                        Toast.makeText(Login_Activity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }
