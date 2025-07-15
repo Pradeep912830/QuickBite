@@ -1,11 +1,13 @@
 package com.example.foodorderapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +25,11 @@ public class Signup_Activity extends AppCompatActivity {
     Button btnSignup;
     TextView alreadyHaveAnAccount;
 
+    ProgressBar progressBar;
+    View progressOverlay;
     FirebaseAuth mAuth;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,11 @@ public class Signup_Activity extends AppCompatActivity {
         signupPassword = findViewById(R.id.signupPassword);
         btnSignup = findViewById(R.id.btnSignup);
         alreadyHaveAnAccount = findViewById(R.id.alreadyHaveAnAccount);
+        progressBar = findViewById(R.id.progressBar);
+        progressOverlay = findViewById(R.id.progressOverlay);
+
+        progressBar.setVisibility(View.GONE);
+        progressOverlay.setVisibility(View.GONE);
 
         // Sign up button logic
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +70,11 @@ public class Signup_Activity extends AppCompatActivity {
     }
 
     private void registerUser() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        progressOverlay.setVisibility(View.VISIBLE);
+
+
         String name = signupName.getText().toString().trim();
         String email = signupWithEmailOrPhone.getText().toString().trim();
         String password = signupPassword.getText().toString().trim();
@@ -95,9 +110,9 @@ public class Signup_Activity extends AppCompatActivity {
                                 .setValue(new User(name, email))
                                 .addOnCompleteListener(dbTask -> {
                                     if (dbTask.isSuccessful()) {
-                                        Toast.makeText(Signup_Activity.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
+
                                         // Redirect to login or home
-                                        startActivity(new Intent(Signup_Activity.this, Login_Activity.class));
+                                        startActivity(new Intent(Signup_Activity.this, Choose_Location_Activity.class));
                                         finish();
                                     } else {
                                         Toast.makeText(Signup_Activity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();

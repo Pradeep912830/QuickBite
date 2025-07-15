@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,11 +17,34 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class Choose_Location_Activity extends AppCompatActivity {
-    AutoCompleteTextView autoComplete;
+    AutoCompleteTextView autoCompleteTextView;
     AppCompatButton btnLocation;
+
+
+
+    private String[] locations = { "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad",
+            "Chennai", "Kolkata", "Pune", "Jaipur", "Surat",
+            "Lucknow", "Kanpur", "Nagpur", "Visakhapatnam", "Indore",
+            "Thane", "Bhopal", "Patna", "Vadodara", "Ghaziabad",
+            "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut",
+            "Rajkot", "Kalyan-Dombivli", "Varanasi", "Srinagar", "Aurangabad",
+            "Dhanbad", "Amritsar", "Navi Mumbai", "Prayagraj", "Howrah",
+            "Gwalior", "Jabalpur", "Coimbatore", "Vijayawada", "Chandigarh",
+            "Mysore", "Ranchi", "Hubli-Dharwad", "Raipur", "Salem",
+            "Aligarh", "Bareilly", "Mangalore", "Guntur", "Noida"};
+    private FirebaseDatabase database;
+    private DatabaseReference usersRef;
+    private FirebaseAuth mAuth;
+    ProgressBar progressBar;
+    View progressOverlay;;
 
 
     @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId"})
@@ -34,51 +59,56 @@ public class Choose_Location_Activity extends AppCompatActivity {
             return insets;
         });
 
-        autoComplete = findViewById(R.id.autoComplete);
+        autoCompleteTextView = findViewById(R.id.autoComplete);
         btnLocation = findViewById(R.id.btnLocation);
 
-        ArrayList<String> cityList = new ArrayList<>();
+        progressBar = findViewById(R.id.progressBar);
+        progressOverlay = findViewById(R.id.progressOverlay);
 
-        cityList.add("Bihar");
-        cityList.add("Madhya Pradesh");
-        cityList.add("Jharkhand");
-        cityList.add("Kolkata");
-        cityList.add("Utter Pradesh");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
+        autoCompleteTextView.setAdapter(adapter);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, cityList);
-        autoComplete.setAdapter(arrayAdapter);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        usersRef = database.getReference("Users");
 
-
-        autoComplete.setFocusable(false);
-        autoComplete.setClickable(true); // still needed for the icon to be clickable
-        autoComplete.setKeyListener(null);
-
-
-
-        autoComplete.setOnTouchListener((v, event) -> {
-            // Show dropdown only when the icon is clicked
-            // Assuming the end drawable is on the right (arrow icon)
-            final int DRAWABLE_RIGHT = 2;
-            if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (autoComplete.getRight() -
-                        autoComplete.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    autoComplete.showDropDown(); // show dropdown
-                    return true;
-                }
-            }
-            return false;
-        });
-
+        progressBar.setVisibility(View.GONE);
+        progressOverlay.setVisibility(View.GONE);
 
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                String selectedLocation = autoCompleteTextView.getText().toString();
+
+                if(selectedLocation.isEmpty()){
+                    Toast.makeText(Choose_Location_Activity.this, "Please Select a Location", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user != null){
+                    String uid = user.getUid();
+
+                    usersRef.child(uid).child("Location").setValue(selectedLocation)
+                            .addOnSuccessListener(aVoid ->{
+
+                                progressBar.setVisibility(View.VISIBLE);
+                                progressOverlay.setVisibility(View.VISIBLE);
+
+                                Intent intent = new Intent(Choose_Location_Activity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+
+                                Toast.makeText(Choose_Location_Activity.this, "Failed to save location", Toast.LENGTH_SHORT).show();
+                            });
+                }else{
+                    Toast.makeText(Choose_Location_Activity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
     }
 }

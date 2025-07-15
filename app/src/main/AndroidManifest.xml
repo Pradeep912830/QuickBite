@@ -24,7 +24,9 @@
         <activity
             android:name=".Choose_Location_Activity"
             android:exported="false"
-            tools:ignore="MissingClass" />
+            tools:ignore="MissingClass"/>
+
+
         <activity
             android:name=".Signup_Activity"
             android:exported="false"
@@ -33,6 +35,7 @@
             android:name=".Login_Activity"
             android:exported="false"
             tools:ignore="MissingClass" />
+
         <activity
             android:name=".Pizza_Activity"
             android:exported="false"

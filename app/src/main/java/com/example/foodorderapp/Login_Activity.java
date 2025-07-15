@@ -1,10 +1,13 @@
 package com.example.foodorderapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -20,7 +23,10 @@ public class Login_Activity extends AppCompatActivity {
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private TextView doNotHaveAccount;
+    ProgressBar progressBar;
+    View progressOverlay;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,12 @@ public class Login_Activity extends AppCompatActivity {
         loginPassword = findViewById(R.id.loginPassword);
         btnLogin = findViewById(R.id.btnLogin);
         doNotHaveAccount = findViewById(R.id.do_notHaveAccount);
+        progressBar = findViewById(R.id.progressBar);
+        progressOverlay = findViewById(R.id.progressOverlay);
+
+        progressBar.setVisibility(View.GONE);
+        progressOverlay.setVisibility(View.GONE);
+
 
         // Login button click
         btnLogin.setOnClickListener(view -> loginUser());
@@ -46,6 +58,9 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void loginUser() {
+        progressBar.setVisibility(View.VISIBLE);
+        progressOverlay.setVisibility(View.VISIBLE);
+
         String email = loginWithEmailOrPhone.getText().toString().trim();
         String password = loginPassword.getText().toString().trim();
 
@@ -63,7 +78,6 @@ public class Login_Activity extends AppCompatActivity {
                 .addOnCompleteListener(Login_Activity.this, task -> {
                     if (task.isSuccessful()) {
                         // Login success
-                        Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Login_Activity.this, MainActivity.class));
                         finish();
                     } else {
