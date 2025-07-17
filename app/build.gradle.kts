@@ -40,6 +40,9 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -50,6 +53,9 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:22.3.1")        // or whatever Firebase services you need
     implementation ("com.google.firebase:firebase-database:20.3.0")
     implementation ("com.google.firebase:firebase-storage:20.3.0")
+    implementation ("com.google.android.gms:play-services-auth:21.0.0")
+
+
 
 
 

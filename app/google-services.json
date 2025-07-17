@@ -13,7 +13,20 @@
           "package_name": "com.example.foodorderapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "924116512087-0eestplint6fg7r3csvjal92s315hjcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodorderapp",
+            "certificate_hash": "f36299f47617f8e893ce8145c0fcff02f7f341a6"
+          }
+        },
+        {
+          "client_id": "924116512087-ukkhcrb5pin1lru8qv2npv0qvbsfaraf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDQLACtL9FQCPvhr8QuCFEFDFgqd9F8BMo"
@@ -21,18 +34,36 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924116512087-ukkhcrb5pin1lru8qv2npv0qvbsfaraf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:924116512087:android:b23713df548719ce6a2212",
+        "mobilesdk_app_id": "1:924116512087:android:90f422f038ed8d0c6a2212",
         "android_client_info": {
-          "package_name": "com.example.shms"
+          "package_name": "com.example.foodorderingadmin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "924116512087-k0jdgq72tc5r4m7l105qjpe8h81g5pds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodorderingadmin",
+            "certificate_hash": "f36299f47617f8e893ce8145c0fcff02f7f341a6"
+          }
+        },
+        {
+          "client_id": "924116512087-ukkhcrb5pin1lru8qv2npv0qvbsfaraf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDQLACtL9FQCPvhr8QuCFEFDFgqd9F8BMo"
@@ -40,7 +71,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924116512087-ukkhcrb5pin1lru8qv2npv0qvbsfaraf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
