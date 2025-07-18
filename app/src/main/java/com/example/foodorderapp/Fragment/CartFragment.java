@@ -50,25 +50,25 @@ public class CartFragment extends Fragment {
         // Sample data
         cartItems = new ArrayList<>();
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
         cartItems.add(new CartItem("Spacy fresh crab", "$35", R.drawable.food_three, 1));
-        cartItems.add(new CartItem("Juicy beef burger", "$28", R.drawable.food_three, 2));
+        cartItems.add(new CartItem("Juicy burger", "$28", R.drawable.food_three, 2));
 
         adapter = new CartAdapter(cartItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
