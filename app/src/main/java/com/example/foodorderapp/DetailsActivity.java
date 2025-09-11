@@ -7,9 +7,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 public class DetailsActivity extends AppCompatActivity {
     ImageView foodImage, backButton;
-    TextView foodName;
+    TextView foodName, foodprice, description;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -20,36 +22,31 @@ public class DetailsActivity extends AppCompatActivity {
         foodImage = findViewById(R.id.foodImage);
         foodName = findViewById(R.id.foodName);
         backButton = findViewById(R.id.backButton);
+        foodprice = findViewById(R.id.price);
+        description = findViewById(R.id.description);
 
         backButton.setOnClickListener(v -> onBackPressed());
 
         String name = getIntent().getStringExtra("foodName");
-        int imageResId = getIntent().getIntExtra("foodImage", -1);
+        String price = getIntent().getStringExtra("foodPrice");
+        String imageUrl = getIntent().getStringExtra("foodImageUrl");
+        String des = getIntent().getStringExtra("description");
 
-        if (name != null && imageResId != -1) {
+        if(name != null){
             foodName.setText(name);
-            foodImage.setImageResource(imageResId);
-        } else {
-            // Try the alternative keys
-            String name1 = getIntent().getStringExtra("food_name");
-            int imageResId1 = getIntent().getIntExtra("food_image", -1);
-
-            if (name1 != null && imageResId1 != -1) {
-                foodName.setText(name1);
-                foodImage.setImageResource(imageResId1);
-            } else {
-
-                String name2 = getIntent().getStringExtra("food_name");
-                int imageResI2 = getIntent().getIntExtra("food_image", -1);
-
-                if(name2 != null && imageResI2 != -1){
-                    foodName.setText(name2);
-                    foodImage.setImageResource(imageResI2);
-                }
-
-            }
         }
 
+        if(foodprice != null){
+            foodprice.setText(price);
+        }
+
+        if(imageUrl != null){
+            Glide.with(this).load(imageUrl).into(foodImage);
+        }
+
+        if(des != null){
+            description.setText(des);
+        }
     }
 
 }

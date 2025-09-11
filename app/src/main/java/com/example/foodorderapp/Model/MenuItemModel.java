@@ -3,15 +3,24 @@ package com.example.foodorderapp.Model;
 public class MenuItemModel {
     private String name;
     private String price;
-    private int imageResId;
+    private String imageUrl;
+    private String description;
 
-    public MenuItemModel(String name, String price, int imageResId) {
+    public MenuItemModel(){
+
+    }
+
+    public MenuItemModel(String name, String price, String imageUrl, String description) {
         this.name = name;
         this.price = price;
-        this.imageResId = imageResId;
+        this.imageUrl = imageUrl;
+        this.description = description;
     }
 
     public String getName() { return name; }
     public String getPrice() { return price; }
-    public int getImageResId() { return imageResId; }
+    public String getImageUrl() { return imageUrl; }
+    public  String getDescription(){
+        return description;
+    }
 }

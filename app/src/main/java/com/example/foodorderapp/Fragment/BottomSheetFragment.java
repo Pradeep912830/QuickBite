@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.Model.MenuItemModel;
@@ -20,6 +21,11 @@ import com.example.foodorderapp.R;
 import com.example.foodorderapp.adapter.MenuAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +34,9 @@ import java.util.List;
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     ImageView backButton;
+    RecyclerView recyclerView;
+    MenuAdapter adapter;
+    List<MenuItemModel> menuList;
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -36,7 +45,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bottom__sheet_, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.menuRecyclerView);
+        recyclerView = view.findViewById(R.id.menuRecyclerView);
         backButton = view.findViewById(R.id.backButton);
 
         backButton.setOnClickListener(v -> getDialog().onBackPressed());
@@ -44,44 +53,51 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
   
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        List<MenuItemModel> menuList = new ArrayList<>();
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        menuList.add(new MenuItemModel("Herbal Pancake", "$7", R.drawable.food_three));
-        menuList.add(new MenuItemModel("Salad Bowl", "$5", R.drawable.food_two));
-        menuList.add(new MenuItemModel("Fruit Shake", "$6", R.drawable.food_one));
-        // Add more items here
-
-        MenuAdapter adapter = new MenuAdapter(menuList);
+        menuList = new ArrayList<>();
+        adapter = new MenuAdapter(menuList);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(item -> {
             Intent intent = new Intent(getActivity(), DetailsActivity.class);
             intent.putExtra("foodName", item.getName());
-            intent.putExtra("foodImage", item.getImageResId());
+            intent.putExtra("foodPrice", item.getPrice());
+            intent.putExtra("foodImageUrl", item.getImageUrl());
+            intent.putExtra("description", item.getDescription());
+
             startActivity(intent);
         });
 
 
-
+        fetchMenuItems();
         return view;
+    }
+
+    private void fetchMenuItems(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("FoodItems");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                menuList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String name = dataSnapshot.child("name").getValue(String.class);
+                    Object pobj = dataSnapshot.child("price").getValue();
+                    String price = pobj != null ? String.valueOf(pobj) : null;
+                    String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
+                    String description = dataSnapshot.child("description").getValue(String.class);
+
+                    if(name != null && price != null && imageUrl != null && description != null){
+                        menuList.add(new MenuItemModel(name, price, imageUrl, description));
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireContext(), "Failed to load data!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -99,9 +115,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             behavior.setSkipCollapsed(true);
         }
+
     }
-
-
-
 
 }
