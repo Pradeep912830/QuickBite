@@ -46,6 +46,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText(item.getPrice());
         holder.description.setText(item.getDescription());
+        holder.ingredients.setText(item.getIngredients());
 
 
         Glide.with(holder.itemView.getContext())
@@ -66,7 +67,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     public static class MenuViewHolder extends RecyclerView.ViewHolder {
         ImageView foodImage;
-        TextView foodName, foodPrice, description;
+        TextView foodName, foodPrice, description, ingredients;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +75,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             foodName = itemView.findViewById(R.id.food_name);
             foodPrice = itemView.findViewById(R.id.food_price);
             description = itemView.findViewById(R.id.description);
+            ingredients = itemView.findViewById(R.id.ingredient);
+
         }
     }
 }

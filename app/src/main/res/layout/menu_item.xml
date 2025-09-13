@@ -41,8 +41,8 @@
 
 
             <LinearLayout
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
@@ -54,7 +54,7 @@
                     android:text="Herbal Pancake"
                     android:textStyle="bold"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/mainDark"
                     android:textSize="16sp"
@@ -64,26 +64,55 @@
                     app:layout_constraintTop_toTopOf="@id/food_image"
                     app:layout_constraintVertical_bias="0.473" />
 
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="120dp"
-                    android:layout_height="20dp"
-                    android:hint="Description"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/mainLight"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/food_image"
-                    app:layout_constraintEnd_toStartOf="@id/food_price"
-                    app:layout_constraintStart_toEndOf="@id/food_image"
-                    app:layout_constraintTop_toTopOf="@id/food_image"
-                    app:layout_constraintVertical_bias="0.473" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:hint="Description"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="6dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#8A8A8A"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/food_image"
+                        app:layout_constraintEnd_toStartOf="@id/food_price"
+                        app:layout_constraintStart_toEndOf="@id/food_image"
+                        app:layout_constraintTop_toTopOf="@id/food_image"
+                        app:layout_constraintVertical_bias="0.473" />
+
+
+                    <TextView
+                        android:id="@+id/ingredient"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:hint="Ingredient"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="6dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#8A8A8A"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/food_image"
+                        app:layout_constraintEnd_toStartOf="@id/food_price"
+                        app:layout_constraintStart_toEndOf="@id/food_image"
+                        app:layout_constraintTop_toTopOf="@id/food_image"
+                        app:layout_constraintVertical_bias="0.473" />
+                </LinearLayout>
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
@@ -127,7 +156,7 @@
 
                 <TextView
                     android:id="@+id/food_addtocart"
-                    android:layout_width="80dp"
+                    android:layout_width="70dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/colorful"

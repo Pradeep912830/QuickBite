@@ -63,6 +63,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             intent.putExtra("foodPrice", item.getPrice());
             intent.putExtra("foodImageUrl", item.getImageUrl());
             intent.putExtra("description", item.getDescription());
+            intent.putExtra("ingredients", item.getIngredients());
 
             startActivity(intent);
         });
@@ -85,9 +86,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     String price = pobj != null ? String.valueOf(pobj) : null;
                     String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
                     String description = dataSnapshot.child("description").getValue(String.class);
+                    String ingredients = dataSnapshot.child("ingredients").getValue(String.class);
 
-                    if(name != null && price != null && imageUrl != null && description != null){
-                        menuList.add(new MenuItemModel(name, price, imageUrl, description));
+                    if(name != null && price != null && imageUrl != null && description != null || ingredients != null){
+                        menuList.add(new MenuItemModel(name, price, imageUrl, description, ingredients));
                     }
                 }
                 adapter.notifyDataSetChanged();

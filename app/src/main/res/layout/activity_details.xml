@@ -119,6 +119,7 @@ ut labore et dolore magna aliqua. Ut enim ad"
         android:layout_marginLeft="20dp"/>
 
     <TextView
+        android:id="@+id/ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"

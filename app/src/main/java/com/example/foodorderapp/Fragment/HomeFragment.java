@@ -23,14 +23,23 @@ import com.example.foodorderapp.DetailsActivity;
 import com.example.foodorderapp.Model.PopularModel;
 import com.example.foodorderapp.R;
 import com.example.foodorderapp.adapter.PopularAdapter;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private ImageSlider imageSlider;
     private RecyclerView recyclerView;
+    private List<PopularModel> popularList;
+    private PopularAdapter adapter;
 
 
     public HomeFragment() {
@@ -52,14 +61,29 @@ public class HomeFragment extends Fragment {
             bottomSheet.show(getParentFragmentManager(), "MenuBottomSheet");
         });
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                popularList = new ArrayList<>();
+                adapter = new PopularAdapter(popularList);
+                recyclerView.setAdapter(adapter);
+
+      adapter.setOnItemClickListener(v -> {
+          Intent intent = new Intent(getActivity(), DetailsActivity.class);
+          intent.putExtra("name", v.getName());
+          intent.putExtra("price", v.getPrice());
+          intent.putExtra("ingredients", v.getIngredients());
+          intent.putExtra("imageUrl", v.getImageUrl());
+          intent.putExtra("description", v.getDescription());
+
+
+          startActivity(intent);
+      });
+
 
         setupImageSlider();
-        setupPopularItems();
+        fetchPopularItems();
 
         return view;
     }
-
-
 
     private void setupImageSlider() {
         List<SlideModel> slideModels = new ArrayList<>();
@@ -86,40 +110,33 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupPopularItems() {
-        List<PopularModel> popularList = new ArrayList<>();
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Herbal Pancake", "$7", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Salad Bowl", "$5", "Add to cart"));
-        popularList.add(new PopularModel(R.drawable.food_three, "Vegan Wrap", "$6", "Add to cart"));
+    private void fetchPopularItems() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("FoodItems");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                popularList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String name = dataSnapshot.child("name").getValue(String.class);
+                    Object pobj = dataSnapshot.child("price").getValue();
+                    String price = pobj != null ? String.valueOf(pobj) : null;
+                    String ingredients = dataSnapshot.child("ingredients").getValue(String.class);
+                    String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
+                    String description = dataSnapshot.child("description").getValue(String.class);
 
+                    if (name != null && price != null && ingredients != null && imageUrl != null && description != null) {
+                        popularList.add(new PopularModel(name, price, ingredients, imageUrl, description));
+                    }
+                }
+                Collections.shuffle(popularList);
+                adapter.notifyDataSetChanged();
+            }
 
-        PopularAdapter adapter = new PopularAdapter(popularList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-
-
-        adapter.setOnItemClickListener(item -> {
-            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-            intent.putExtra("food_name", item.getName());
-            intent.putExtra("food_image", item.getImageResId());
-            startActivity(intent);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireContext(), "Fetch data failed!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
-
 
 }
