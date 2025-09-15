@@ -4,14 +4,26 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 public class DetailsActivity extends AppCompatActivity {
     ImageView foodImage, backButton;
     TextView foodName, foodPrice, description, ingredient;
+    AppCompatButton addToCart;
+    DatabaseReference reference;
+    FirebaseAuth auth;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -26,6 +38,9 @@ public class DetailsActivity extends AppCompatActivity {
         foodPrice = findViewById(R.id.price);
         description = findViewById(R.id.description);
         ingredient = findViewById(R.id.ingredient);
+        addToCart = findViewById(R.id.addToCart);
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        auth = FirebaseAuth.getInstance();
 
         backButton.setOnClickListener(v -> onBackPressed());
 
@@ -64,5 +79,38 @@ public class DetailsActivity extends AppCompatActivity {
             int resId = getIntent().getIntExtra("foodImage", R.drawable.food_three);
             foodImage.setImageResource(resId);
         }
+
+        // Add to cart functionality
+
+        String finalName = name;
+        String finalPrice = price;
+        String finalImageUrl = imageUrl;
+        String finalDes = des;
+        String finalIngredients = ingredients;
+
+        addToCart.setOnClickListener(v->{
+            String userid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
+            if(userid == null){
+                Toast.makeText(DetailsActivity.this, "User not logged in!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String cartItemId = reference.child(userid).child("cartItems").push().getKey();
+
+            Map<String, Object> cartItem = new HashMap<>();
+
+            cartItem.put("name", finalName);
+            cartItem.put("price", finalPrice);
+            cartItem.put("imageUrl", finalImageUrl);
+            cartItem.put("description", finalDes);
+            cartItem.put("ingredients", finalIngredients);
+
+            if(cartItemId != null){
+                reference.child(userid).child("cartItems").child(cartItemId)
+                        .setValue(cartItem).addOnSuccessListener(unused -> Toast.makeText(DetailsActivity.this, "Added to cart!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
+                                Toast.makeText(DetailsActivity.this, "Failed: "+ e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        });
+
     }
 }

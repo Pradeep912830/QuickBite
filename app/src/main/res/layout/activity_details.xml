@@ -133,6 +133,7 @@ wheat"
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addToCart"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="20dp"

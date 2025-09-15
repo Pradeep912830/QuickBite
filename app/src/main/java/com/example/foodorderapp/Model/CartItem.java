@@ -3,20 +3,23 @@ package com.example.foodorderapp.Model;
 public class CartItem {
     private String name;
     private String price;
-    private int imageResId;
-    private int quantity;
+    private String imageUrl;
 
-    public CartItem(String name, String price, int imageResId, int quantity) {
+    public CartItem(){
+
+    }
+
+    public CartItem(String name, String price, String imageUrl) {
         this.name = name;
         this.price = price;
-        this.imageResId = imageResId;
-        this.quantity = quantity;
+        this.imageUrl = imageUrl;
+
     }
 
     public String getName() { return name; }
     public String getPrice() { return price; }
-    public int getImageResId() { return imageResId; }
-    public int getQuantity() { return quantity; }
-
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public String getImageUrl() { return imageUrl; }
+//    public int getQuantity() { return quantity; }
+//
+//    public void setQuantity(int quantity) { this.quantity = quantity; }
 }
