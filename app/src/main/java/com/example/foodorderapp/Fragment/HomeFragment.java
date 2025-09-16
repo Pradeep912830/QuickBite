@@ -73,8 +73,6 @@ public class HomeFragment extends Fragment {
           intent.putExtra("ingredients", v.getIngredients());
           intent.putExtra("imageUrl", v.getImageUrl());
           intent.putExtra("description", v.getDescription());
-
-
           startActivity(intent);
       });
 

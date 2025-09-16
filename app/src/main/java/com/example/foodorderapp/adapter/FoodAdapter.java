@@ -6,10 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.foodorderapp.Model.FoodItem;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodorderapp.Model.MenuItemModel;
+import com.bumptech.glide.Glide;
+import com.example.foodorderapp.Model.FoodItem;
 import com.example.foodorderapp.R;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     private Context context;
     private List<FoodItem> foodList;
     private List<FoodItem> fullList;
-
 
     private OnItemClickListener listener;
 
@@ -49,8 +49,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         FoodItem item = foodList.get(position);
         holder.name.setText(item.getName());
         holder.price.setText(item.getPrice());
-        holder.image.setImageResource(item.getImageResId());
 
+        // 🔹 Load image from URL using Glide
+        Glide.with(context)
+                .load(item.getImageUrl())
+                .into(holder.image);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -64,6 +67,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         return foodList.size();
     }
 
+    // 🔎 Search filter
     public void filter(String text) {
         foodList.clear();
         if (text.isEmpty()) {
@@ -76,6 +80,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                 }
             }
         }
+        notifyDataSetChanged();
+    }
+
+    // 🔹 Refresh list from Firebase
+    public void updateList(List<FoodItem> newList) {
+        foodList.clear();
+        foodList.addAll(newList);
+        fullList.clear();
+        fullList.addAll(newList);
         notifyDataSetChanged();
     }
 

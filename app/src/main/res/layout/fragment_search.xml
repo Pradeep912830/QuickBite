@@ -10,7 +10,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <SearchView
-        android:id="@+id/search_searchView"
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="8dp"
@@ -25,7 +25,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/popular_items"
-        app:layout_constraintTop_toBottomOf="@+id/search_searchView"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,12 +3,16 @@ package com.example.foodorderapp.Model;
 public class FoodItem {
     private String name;
     private String price;
-    private int image;
+    private String imageUrl;
 
-    public FoodItem(String name, String price, int image){
+    public FoodItem(){
+
+    }
+
+    public FoodItem(String name, String price, String imageUrl){
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -19,7 +23,7 @@ public class FoodItem {
         return price;
     }
 
-    public int getImageResId() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
