@@ -99,8 +99,14 @@ public class DetailsActivity extends AppCompatActivity {
 
             Map<String, Object> cartItem = new HashMap<>();
 
+            cartItem.put("id", cartItemId);
             cartItem.put("name", finalName);
-            cartItem.put("price", finalPrice);
+            try {
+                double priceValue = Double.parseDouble(finalPrice);
+                cartItem.put("price", priceValue);
+            } catch (NumberFormatException e){
+                cartItem.put("price", 0.0);
+            }
             cartItem.put("imageUrl", finalImageUrl);
             cartItem.put("description", finalDes);
             cartItem.put("ingredients", finalIngredients);

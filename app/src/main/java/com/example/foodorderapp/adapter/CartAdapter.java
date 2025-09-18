@@ -45,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         CartItem item = cartItemList.get(position);
 
         holder.foodName.setText(item.getName());
-        holder.foodPrice.setText(item.getPrice());
+        holder.foodPrice.setText("$"+item.getPrice());
         Glide.with(context).load(item.getImageUrl()).into(holder.foodImage);
 
         holder.foodQuantity.setText(String.valueOf(item.getQuantity()));
@@ -66,17 +66,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // Delete item (remove from Firebase)
         holder.buttonDelete.setOnClickListener(v -> {
-            DatabaseReference ref = FirebaseDatabase.getInstance()
-                    .getReference("Users")
-                    .child(userId)
-                    .child("cartItems")
-                    .child(item.getName()); // assuming food name is unique
-            ref.removeValue();
+            if(item.getId() != null){
+                DatabaseReference ref = FirebaseDatabase.getInstance()
+                        .getReference("Users")
+                        .child(userId)
+                        .child("cartItems")
+                        .child(item.getId()); // use unique id
 
-            cartItemList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, cartItemList.size());
+                ref.removeValue().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int currentPos = holder.getAdapterPosition();
+                        if(currentPos != RecyclerView.NO_POSITION){
+                            cartItemList.remove(currentPos);
+                           notifyItemRemoved(currentPos);
+                        }
+                    }
+                });
+            }
         });
+
     }
 
     @Override

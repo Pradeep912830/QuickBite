@@ -52,6 +52,7 @@
             android:textColor="@color/black"/>
 
         <EditText
+            android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -71,7 +72,7 @@
         android:layout_marginRight="10dp"
         android:elevation="8dp"
         android:gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -85,6 +86,7 @@
             android:textColor="@color/black"/>
 
         <EditText
+            android:id="@+id/userAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -106,7 +108,7 @@
         android:layout_marginRight="10dp"
         android:elevation="8dp"
         android:gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -120,6 +122,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/userPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -129,7 +132,44 @@
             android:textStyle="normal"
             android:hint="Phone"
             android:background="@null"/>
+    </LinearLayout>
 
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_backgroung"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="95dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="Price"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/totalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:hint="Price"
+            android:background="@null"/>
     </LinearLayout>
 
 
@@ -140,7 +180,42 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:elevation="8dp"
-        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="95dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="Quantity"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/totalQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:hint="No of Quantity"
+            android:background="@null"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_backgroung"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:elevation="8dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -157,19 +232,19 @@
         <ImageView
            android:layout_width="100dp"
            android:layout_height="70dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="0dp"
            android:src="@drawable/cod"/>
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/editInformationButton"
+        android:id="@+id/placeMyOrder"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:text="Place My Order"
         android:textStyle="bold"
         android:textSize="15sp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:elevation="30dp"
         android:layout_marginLeft="20dp"

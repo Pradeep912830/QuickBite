@@ -1,5 +1,6 @@
 package com.example.foodorderapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,22 +40,30 @@ public class CartFragment extends Fragment {
     private List<CartItem> cartItemList;
     DatabaseReference reference;
     FirebaseAuth auth;
-    AppCompatButton button;
+    AppCompatButton orderNow;
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false); // your fragment layout
         recyclerView = view.findViewById(R.id.recyclerView_cart_item);
-        button = view.findViewById(R.id.button);
+        orderNow = view.findViewById(R.id.orderNow);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditInformation.class);
-                startActivity(intent);
+        orderNow.setOnClickListener(v ->{
+            double totalPrice = 0;
+            int totalQuantity = 0;
+
+            for(CartItem item : cartItemList){
+                totalPrice += item.getPrice() *  item.getQuantity();
+                totalQuantity += item.getQuantity();
             }
+
+            Intent intent = new Intent(getContext(), EditInformation.class);
+            intent.putExtra("totalPrice", totalPrice);
+            intent.putExtra("totalQuantity", totalQuantity);
+            startActivity(intent);
         });
 
         auth = FirebaseAuth.getInstance();
@@ -87,6 +96,7 @@ public class CartFragment extends Fragment {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     if(item != null){
+                        item.setId(dataSnapshot.getKey());
                         cartItemList.add(item);
                     }
                 }
