@@ -37,16 +37,17 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.083" />
 
+
   <ImageView
       android:id="@+id/notification_image"
       android:layout_width="25dp"
       android:layout_height="25dp"
       app:layout_constraintBottom_toBottomOf="@+id/textView"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.614"
+      app:layout_constraintHorizontal_bias="0.626"
       app:layout_constraintStart_toEndOf="@+id/textView"
       app:layout_constraintTop_toTopOf="@+id/textView"
-      app:layout_constraintVertical_bias="0.466"
+      app:layout_constraintVertical_bias="0.0"
       app:srcCompat="@drawable/bell"
       app:tint="#05ED0E" />
 
@@ -59,8 +60,10 @@
       app:defaultNavHost="true"
       app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.228"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView"
+      app:layout_constraintVertical_bias="0.0"
       app:navGraph="@navigation/navigation"
       tools:ignore="MissingConstraints" />
 

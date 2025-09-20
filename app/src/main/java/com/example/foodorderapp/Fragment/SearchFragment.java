@@ -34,7 +34,6 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     private FoodAdapter adapter;
     private List<FoodItem> foodList;
-
     private DatabaseReference foodRef;
 
     @SuppressLint("MissingInflatedId")

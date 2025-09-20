@@ -60,10 +60,10 @@ public class EditInformation extends AppCompatActivity {
         goBack.setOnClickListener(v -> onBackPressed());
 
         totalQuantityValue = getIntent().getIntExtra("totalQuantity", 0);
-        totalPriceValue = getIntent().getIntExtra("totalPrice", 0);
+        totalPriceValue = getIntent().getDoubleExtra("totalPrice", 0.0);
 
         totalQuantity.setText(String.valueOf(totalQuantityValue));
-        totalPrice.setText(String.valueOf(totalPriceValue));
+        totalPrice.setText("₹ " + String.format("%.2f", totalPriceValue));
 
 
         String userId = auth.getCurrentUser().getUid();
