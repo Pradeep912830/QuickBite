@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.foodorderapp.Model.BuyAgainModel;
 import com.example.foodorderapp.R;
 import com.example.foodorderapp.adapter.BuyAgainAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ public class HistoryFragment extends Fragment {
     private BuyAgainAdapter adapter;
     private List<BuyAgainModel> foodList;
     private DatabaseReference reference;
+    private FirebaseAuth auth;
 
     public HistoryFragment(){
 
@@ -55,8 +57,10 @@ public class HistoryFragment extends Fragment {
         adapter = new BuyAgainAdapter(getContext(),foodList);
         recyclerView.setAdapter(adapter);
 
-        reference = FirebaseDatabase.getInstance().getReference("Orders");
+        auth = FirebaseAuth.getInstance();
+        String userId = auth.getCurrentUser().getUid();
 
+        reference = FirebaseDatabase.getInstance().getReference("Orders").child(userId);
         fetchItems();
 
         return view;
@@ -67,19 +71,20 @@ public class HistoryFragment extends Fragment {
                 @Override
                 public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
                     foodList.clear();
-                    for(DataSnapshot userOrder : snapshot.getChildren()){
-                         for(DataSnapshot order : userOrder.getChildren()){
-                             for(DataSnapshot itemOrder : order.child("item").getChildren()){
-                                 String name = itemOrder.child("name").getValue(String.class);
-                                 Object pObj = itemOrder.child("price").getValue();
-                                 String price = pObj != null ? String.valueOf(pObj) : null;
-                                 String imageUrl = itemOrder.child("imageUrl").getValue(String.class);
 
-                                 if(name != null && price != null && imageUrl != null){
-                                     foodList.add(new BuyAgainModel(imageUrl, name, price));
-                                 }
-                             }
-                         }
+                    for(DataSnapshot userSnap : snapshot.getChildren()){
+                        DataSnapshot itemsSnap = userSnap.child("item");
+
+                        for(DataSnapshot itemsnap : itemsSnap.getChildren()){
+                            String imageUrl = itemsnap.child("imageUrl").getValue(String.class);
+                            String foodName = itemsnap.child("name").getValue(String.class);
+                            Object obj = itemsnap.child("price").getValue();
+                            String price = String.valueOf(obj);
+
+                            if(imageUrl != null && foodName != null && price != null){
+                                foodList.add(new BuyAgainModel(imageUrl, foodName, price));
+                            }
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 }

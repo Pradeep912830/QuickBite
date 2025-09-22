@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Signup_Activity extends AppCompatActivity {
 
-    EditText signupName, signupWithEmailOrPhone, signupPassword;
+    EditText signupName, signupWithEmailOrPhone, signupPassword, mobileNumber;
     Button btnSignup;
     TextView alreadyHaveAnAccount;
 
@@ -44,6 +44,7 @@ public class Signup_Activity extends AppCompatActivity {
         signupPassword = findViewById(R.id.signupPassword);
         btnSignup = findViewById(R.id.btnSignup);
         alreadyHaveAnAccount = findViewById(R.id.alreadyHaveAnAccount);
+        mobileNumber = findViewById(R.id.mobileNumber);
         progressBar = findViewById(R.id.progressBar);
         progressOverlay = findViewById(R.id.progressOverlay);
 
@@ -78,6 +79,7 @@ public class Signup_Activity extends AppCompatActivity {
         String name = signupName.getText().toString().trim();
         String email = signupWithEmailOrPhone.getText().toString().trim();
         String password = signupPassword.getText().toString().trim();
+        String phoneNum = mobileNumber.getText().toString().trim();
 
         // Input validation
         if (TextUtils.isEmpty(name)) {
@@ -100,18 +102,25 @@ public class Signup_Activity extends AppCompatActivity {
             return;
         }
 
-        // Firebase Auth: Create User
+        if(TextUtils.isEmpty(phoneNum)){
+            mobileNumber.setError("Enter valid mobile number!");
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Store user info in Realtime Database
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(new User(name, email))
-                                .addOnCompleteListener(dbTask -> {
-                                    if (dbTask.isSuccessful()) {
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                                        // Redirect to login or home
+                        User user = new User(name, email, phoneNum);
+
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(uid)
+                                .setValue(user)
+                                .addOnCompleteListener(dbTask -> {
+                                    progressBar.setVisibility(View.GONE);
+                                    progressOverlay.setVisibility(View.GONE);
+
+                                    if (dbTask.isSuccessful()) {
                                         startActivity(new Intent(Signup_Activity.this, Choose_Location_Activity.class));
                                         finish();
                                     } else {
@@ -119,8 +128,15 @@ public class Signup_Activity extends AppCompatActivity {
                                     }
                                 });
                     } else {
+                        progressBar.setVisibility(View.GONE);
+                        progressOverlay.setVisibility(View.GONE);
                         Toast.makeText(Signup_Activity.this, "Sign Up Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+
+
+        // Firebase Auth: Create User
+
     }
 }

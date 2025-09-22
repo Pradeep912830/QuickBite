@@ -31,7 +31,7 @@ public class ProfileFragment extends Fragment {
 
     private AppCompatButton btnSaveInformation;
     private ImageView logout, editProfile;
-    private EditText userName, userLocation, userEmail;
+    private EditText userName, userLocation, userEmail, phoneNumber;
     private FirebaseAuth auth;
     private View progressOverLay;
     private ProgressBar progressBar;
@@ -56,6 +56,7 @@ public class ProfileFragment extends Fragment {
         progressOverLay = view.findViewById(R.id.progressOverlay);
         progressBar = view.findViewById(R.id.progressBar);
         editProfile = view.findViewById(R.id.editProfile);
+        phoneNumber = view.findViewById(R.id.phoneNumber);
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         auth = FirebaseAuth.getInstance();
@@ -89,7 +90,7 @@ public class ProfileFragment extends Fragment {
                 .setMessage("Are you sure you want to logout?").
                 setCancelable(false)
                 .setNegativeButton("Cancel", ((dialog, which) -> dialog.dismiss()))
-                .setPositiveButton("Delete", ((dialog, which) -> performLogout())).show();
+                .setPositiveButton("Logout", ((dialog, which) -> performLogout())).show();
     }
 
     private void performLogout(){
@@ -125,10 +126,12 @@ public class ProfileFragment extends Fragment {
                     String name = snapshot.child("name").getValue(String.class);
                     String location = snapshot.child("Location").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
+                    String phone = snapshot.child("phone").getValue(String.class);
 
                     userName.setText(name);
                     userEmail.setText(email);
                     userLocation.setText(location);
+                    phoneNumber.setText(phone);
                 }
             }
 
@@ -145,6 +148,7 @@ public class ProfileFragment extends Fragment {
         String name = userName.getText().toString().trim();
         String email = userEmail.getText().toString().trim();
         String Location = userLocation.getText().toString().trim();
+        String phone = phoneNumber.getText().toString().trim();
 
         if(name.isEmpty()){
             userName.setError("Fill User Name");
@@ -155,8 +159,13 @@ public class ProfileFragment extends Fragment {
         } else if (Location.isEmpty()) {
             userLocation.setError("Fill User Location");
             showProgress(false);
+
+        }else if(phone.isEmpty()){
+            phoneNumber.setError("Fill valid Phone number!");
+            showProgress(false);
         }else {
             reference.child("name").setValue(name);
+            reference.child("phone").setValue(phone);
             reference.child("Location").setValue(Location);
             reference.child("email").setValue(email).addOnCompleteListener(task -> {
                 showProgress(false);

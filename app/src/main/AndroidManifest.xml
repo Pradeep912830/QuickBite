@@ -32,7 +32,10 @@
         <activity
             android:name=".Signup_Activity"
             android:exported="false"
-            tools:ignore="MissingClass" />
+            tools:ignore="MissingClass">
+
+
+        </activity>
         <activity
             android:name=".Login_Activity"
             android:exported="false"
@@ -47,14 +50,17 @@
             android:exported="true"
             tools:ignore="MissingClass">
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
+
+
+
+
         <activity
             android:name=".MainActivity"
             android:exported="false"

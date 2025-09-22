@@ -9,60 +9,52 @@
     <!-- Original LinearLayout -->
     <LinearLayout
         android:id="@+id/main"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
         tools:context=".Signup_Activity">
 
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/logo"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"/>
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Waves"
-            android:textColor="#BE1515"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:textSize="25sp"/>
+            android:text="@string/Waves"
+            android:textColor="#BE1515"
+            android:textSize="25sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Deliver"
-            android:textColor="@color/mainDark"
             android:layout_gravity="center"
-            android:textSize="13sp"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign up here"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:text="Signup Here"
             android:textColor="@color/mainLight"
-            android:layout_marginTop="15dp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="305dp"
-            android:layout_height="172dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/signupName"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/white_color"
                 android:drawableLeft="@drawable/user_account"
                 android:drawablePadding="10dp"
@@ -75,15 +67,31 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/mobileNumber"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_color"
+                android:drawableLeft="@drawable/baseline_phone_24"
+                android:drawablePadding="10dp"
+                android:elevation="5dp"
+                android:hint="Mobile Number"
+                android:inputType="phone"
+                android:paddingLeft="12dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
                 android:id="@+id/signupWithEmailOrPhone"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/white_color"
                 android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="10dp"
                 android:elevation="5dp"
-                android:layout_marginTop="10dp"
-                android:hint="Email or phone number"
+                android:hint="Email "
                 android:inputType="textEmailAddress"
                 android:paddingLeft="12dp"
                 android:textColor="@color/black"
@@ -94,17 +102,18 @@
                 android:id="@+id/signupPassword"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:hint="Passwod"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_color"
                 android:drawableLeft="@drawable/lock"
                 android:drawablePadding="10dp"
                 android:elevation="5dp"
-                android:background="@drawable/white_color"
-                android:paddingLeft="12dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:hint="Passwod"
                 android:inputType="textPassword"
+                android:paddingLeft="12dp"
+                android:layout_marginBottom="2dp"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -112,34 +121,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="or"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:layout_gravity="center" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
                 android:text="Sign up with"
-                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:layout_marginTop="4dp"
-                android:layout_gravity="center" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="400dp"
             android:layout_height="62dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="4dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -147,28 +156,28 @@
                 android:id="@+id/signupWithGoogle"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:text="Google"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:drawableLeft="@drawable/google"
                 android:background="@drawable/white_color"
+                android:drawableLeft="@drawable/google"
                 android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:text="Google"
+                android:textAllCaps="false"
                 android:textSize="8sp"
-                android:paddingEnd="10dp"/>
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signupWithFacebook"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/white_color"
+                android:drawableLeft="@drawable/facebook"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
                 android:text="facebook"
                 android:textAllCaps="false"
-                android:layout_marginLeft="30dp"
-                android:drawableLeft="@drawable/facebook"
-                android:background="@drawable/white_color"
-                android:paddingLeft="10dp"
                 android:textSize="8sp"
-                android:textStyle="bold"
-                android:paddingEnd="10dp"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -176,26 +185,26 @@
             android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Sign Up"
-            android:textAllCaps="false"
-            android:background="@drawable/red_color"
-            android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"/>
+            android:background="@drawable/red_color"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/alreadyHaveAnAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:text="Already have an account?"
             android:textColor="@color/mainDark"
-            android:layout_gravity="center"
             android:textSize="13sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

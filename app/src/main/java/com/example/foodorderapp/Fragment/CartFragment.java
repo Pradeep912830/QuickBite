@@ -105,7 +105,9 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(requireContext(), "Fialed:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                if(getActivity() != null){
+                    Toast.makeText(requireContext(), "Fialed:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
