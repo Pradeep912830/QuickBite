@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.foodorderapp.Model.BuyAgainModel;
 import com.example.foodorderapp.R;
 
@@ -32,21 +33,18 @@ public class BuyAgainAdapter extends RecyclerView.Adapter<BuyAgainAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.buy_again_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.history_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BuyAgainModel item = itemList.get(position);
-        holder.nameText.setText(item.getName());
-        holder.priceText.setText(item.getPrice());
-        holder.imageView.setImageResource(item.getImage());
+        holder.foodName.setText(item.getName());
+        holder.foodPrice.setText(item.getPrice());
+        Glide.with(context).load(item.getImageUrl()).into(holder.foodImage);
 
         // Handle button click if needed
-        holder.buyAgainButton.setOnClickListener(v -> {
-            Toast.makeText(context, "Buying again: " + item.getName(), Toast.LENGTH_SHORT).show();
-        });
     }
 
     @Override
@@ -55,16 +53,15 @@ public class BuyAgainAdapter extends RecyclerView.Adapter<BuyAgainAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView nameText, priceText;
-        Button buyAgainButton;
+        ImageView foodImage;
+        TextView foodName, foodPrice;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.by_again_image);
-            nameText = itemView.findViewById(R.id.buy_again_foodName);
-            priceText = itemView.findViewById(R.id.buy_again_foodPrice);
-            buyAgainButton = itemView.findViewById(R.id.buy_again_button);
+            foodImage = itemView.findViewById(R.id.history_foodImage);
+            foodName = itemView.findViewById(R.id.history_foodName);
+            foodPrice = itemView.findViewById(R.id.history_foodPrice);
         }
     }
 }

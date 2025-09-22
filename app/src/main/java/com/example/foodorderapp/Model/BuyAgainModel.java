@@ -1,17 +1,21 @@
 package com.example.foodorderapp.Model;
 
 public class BuyAgainModel {
-    private int image;
+    private String image;
     private String name;
     private String price;
 
-    public BuyAgainModel(int image, String name, String price){
+    public BuyAgainModel(){
+
+    }
+
+    public BuyAgainModel(String image, String name, String price){
         this.image = image;
         this.name = name;
         this.price = price;
     }
 
-    public int getImage() {
+    public String getImageUrl() {
         return image;
     }
 
