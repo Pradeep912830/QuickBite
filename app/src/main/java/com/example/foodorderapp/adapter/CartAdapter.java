@@ -45,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         CartItem item = cartItemList.get(position);
 
         holder.foodName.setText(item.getName());
-        holder.foodPrice.setText("$"+item.getPrice());
+        holder.foodPrice.setText(""+item.getPrice());
         Glide.with(context).load(item.getImageUrl()).into(holder.foodImage);
 
         holder.foodQuantity.setText(String.valueOf(item.getQuantity()));

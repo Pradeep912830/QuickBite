@@ -32,7 +32,6 @@ import java.util.List;
 
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
-
     ImageView backButton;
     RecyclerView recyclerView;
     MenuAdapter adapter;

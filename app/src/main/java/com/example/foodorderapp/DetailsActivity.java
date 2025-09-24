@@ -59,7 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Set data with null checks
         foodName.setText(name != null ? name : "Unknown Item");
-        foodPrice.setText(price != null ? "₹ " + price : "Price not available");
+        foodPrice.setText(price != null ? price : "Price not available");
         description.setText(des != null ? des : "No description available");
         ingredient.setText(ingredients != null ? ingredients : "No ingredients listed");
 
